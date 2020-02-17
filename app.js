@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+const boardRoutes = require('./routes/board');
+
 const app = express();
 
 // Middleware
@@ -13,6 +15,6 @@ app.use((req, res, next) => {
     next();
 });
 
-
+app.use('/board', boardRoutes);
 
 app.listen(8080);
