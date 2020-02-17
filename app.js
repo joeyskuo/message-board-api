@@ -1,5 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const db = require('./private/credentials');
 
 const boardRoutes = require('./routes/board');
 
@@ -17,4 +19,10 @@ app.use((req, res, next) => {
 
 app.use('/board', boardRoutes);
 
-app.listen(8080);
+mongoose.connect(
+    `mongodb+srv://${db.USERNAME}:${db.PASSWORD}@message-board-dev-pzljn.mongodb.net/test?retryWrites=true&w=majority`
+    ).then(res => {
+        app.listen(8080);
+    }).catch(err => {
+        console.log(err);
+    });
