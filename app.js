@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 const db = require('./private/credentials');
 
 const boardRoutes = require('./routes/board');
+const userRoutes = require('./routes/user');
+
 
 const app = express();
 
@@ -44,14 +46,14 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/board', boardRoutes);
-
-
+app.use('/u', userRoutes);
 
 // Error
 app.use((error, req, res, next) => {
     const statusCode = error.statusCode || 500;
     const message = error.message;
 
+    console.log(error);
     res.status(statusCode).json({message});
 })
 
