@@ -19,7 +19,18 @@ app.use((req, res, next) => {
     next();
 });
 
+// Routes
 app.use('/board', boardRoutes);
+
+
+
+// Error
+app.use((error, req, res, next) => {
+    const statusCode = error.statusCode || 500;
+    const message = error.message;
+
+    res.status(statusCode).json({message});
+})
 
 mongoose.connect(
     `mongodb+srv://${db.USERNAME}:${db.PASSWORD}@message-board-dev-pzljn.mongodb.net/test?retryWrites=true&w=majority`
